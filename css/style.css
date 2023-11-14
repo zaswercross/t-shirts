@@ -1,0 +1,14 @@
+.bg-gy{
+    background-color: rgba(0, 0, 0, .1);
+}
+
+.containerBlack{
+    min-height: 15vh;
+    /* border-radius: 21px 21px 0 0; */
+}
+
+.imgDesign{
+    bottom: 55%;
+    left: 42.5%;
+    width: 20% !important;
+}
