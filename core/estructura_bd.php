@@ -16,7 +16,7 @@ function db($_host, $_user, $_password, $_database) {
         } else {
             return $mysqli;
         }
-    } catch (Exceotion $e) {
+    } catch (Exception $e) {
         $_ERROR = var_export($e, true);
         error_log($_ERROR);
         return FALSE;

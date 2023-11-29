@@ -20,22 +20,30 @@ if($usr && $password){
    $usr       =  _clean($usr,  $MYSQLI);
    $password  =  _clean($password,     $MYSQLI);
 
-    $SQL    =   "SELECT 1 FROM `tshirts`.`tusrs` WHERE `usuario`= '$usr' && `contrasena` = '$password';";
+    $SQL    =   "SELECT * FROM `tshirts`.`tusrs`";
 
    //  $SQL    =   "INSERT INTO `tusrs`(`usuario`, `contrasena`, `status`) VALUES ('sysadmin','21232f297a57a5a743894a0e4a801fc3',1);
    //  INSERT INTO cantos(nombre,content,tags) VALUES ('$titulo','$content','$tags')";
     $RESULT =   _Q($SQL, $MYSQLI, 2);
     
-    if($RESULT){
+    $USRVal=false;
+    foreach ($RESULT as $key => $value) {
+        //var_dump($value['usuario']==$usr && $value['contrasena']==$password,$value['usuario']==$usr , $value['contrasena']==$password,$value['usuario'],$usr , $value['contrasena'],$password);
+        if($value['usuario']==$usr && $value['contrasena']==$password){
+            $USRVal=true;
+        }
+    }
+    
+    if($USRVal){
         session_start();
         // echo session_id();
         // session_destroy();
-        // if(!isset($_SESSION['token'])){
-        //     $u= uniqid(rand());
-        //     $token= trim(md5($u));
-        //     $_SESSION['token']=$token;
-        // }
-        $_SESSION['token']= session_id();
+        if(!isset($_SESSION['token'])){
+            $u= uniqid(rand());
+            $token= trim(md5($u));
+            $_SESSION['token']=$token;
+        }
+        //$_SESSION['token']= session_id();
         $_SESSION['usrs']=$usr;
         echo json_encode(['code'=>0,'response'=>'Logeado','id'=>$RESULT,'sess'=> $_SESSION]);
     }else{

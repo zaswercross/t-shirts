@@ -51,9 +51,11 @@ var_dump($_SESSION);
         login_form.addEventListener('submit', e=> {
             e.preventDefault();
             let password = document.querySelector('#password').value;
+            let usr = document.querySelector('#usr').value;
             password = md5(password);
-            let formData = new FormData(login_form);
+            let formData = new FormData();
             formData.append('password',password)
+            formData.append('usr',usr)
 
             fetch('./core/lgn.php',{
                 method:"POST",
